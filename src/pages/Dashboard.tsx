@@ -66,7 +66,7 @@ function mapCards(
     },
     {
       id: 'orders',
-      title: 'Total Orders',
+      title: 'Quantity Sold',
       value: dashboardData.cards.totalOrders.toLocaleString('en-IN'),
       accent: 'sky',
       icon: 'orders',
@@ -82,7 +82,7 @@ function mapCards(
     },
     {
       id: 'revenue',
-      title: 'Total Revenue',
+      title: 'Profit',
       value: formatCurrency(dashboardData.cards.totalRevenue),
       accent: 'rose',
       icon: 'revenue',
