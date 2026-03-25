@@ -5,7 +5,7 @@ export type SidebarIconType =
   | 'settings'
   | 'theme';
 
-export type CardIconType = 'sales' | 'orders' | 'state' | 'revenue';
+export type CardIconType = 'sales' | 'orders' | 'discount' | 'revenue';
 
 export type CardAccent = 'emerald' | 'sky' | 'amber' | 'rose';
 
@@ -25,6 +25,7 @@ export interface StateDateRange {
 export interface DashboardApiCards {
   totalSales: number;
   totalOrders: number;
+  totalDiscount: number;
   totalRevenue: number;
 }
 

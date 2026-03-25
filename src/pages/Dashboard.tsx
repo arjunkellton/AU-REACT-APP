@@ -15,8 +15,6 @@ import {
   StateDateRange
 } from '../types/dashboard';
 
-const DEFAULT_CUSTOMER_ID = 'CG-12520';
-
 const sidebarItems: MenuItem[] = [
   { id: 'overview', label: 'Sales Overview', icon: 'overview', active: true },
   { id: 'stores', label: 'States', icon: 'stores' },
@@ -30,6 +28,7 @@ const emptyDashboardData: DashboardApiResponse = {
   cards: {
     totalSales: 0,
     totalOrders: 0,
+    totalDiscount: 0,
     totalRevenue: 0
   },
   chart: [],
@@ -48,10 +47,13 @@ function formatCurrency(value: number): string {
   }).format(value);
 }
 
+function formatPercent(value: number): string {
+  return `${value.toFixed(1)}%`;
+}
+
 function mapCards(
   dashboardData: DashboardApiResponse,
   selectedCustomerId: string,
-  selectedState: string,
   startDate: string,
   endDate: string
 ): DashboardCardItem[] {
@@ -70,15 +72,15 @@ function mapCards(
       value: dashboardData.cards.totalOrders.toLocaleString('en-IN'),
       accent: 'sky',
       icon: 'orders',
-      helperText: `Customer ${selectedCustomerId}`
+      helperText: selectedCustomerId ? `Customer ${selectedCustomerId}` : 'All customers total'
     },
     {
-      id: 'state',
-      title: 'Selected State',
-      value: selectedState || '-',
+      id: 'discount',
+      title: 'Discount%',
+      value: formatPercent(dashboardData.cards.totalDiscount),
       accent: 'amber',
-      icon: 'state',
-      helperText: 'Live backend filter'
+      icon: 'discount',
+      helperText: 'Average discount'
     },
     {
       id: 'revenue',
@@ -124,14 +126,9 @@ function Dashboard(): JSX.Element {
           return;
         }
 
-        setStates(stateList);
         setCustomerIds(customerIdList);
+        setStates(stateList);
         setSelectedState(stateList[0] ?? '');
-        setSelectedCustomerId(
-          customerIdList.includes(DEFAULT_CUSTOMER_ID)
-            ? DEFAULT_CUSTOMER_ID
-            : customerIdList[0] ?? ''
-        );
         setIsDashboardLoading(stateList.length > 0);
       } catch (loadError) {
         if (!isMounted) {
@@ -205,7 +202,7 @@ function Dashboard(): JSX.Element {
     let isMounted = true;
 
     async function loadDashboard(): Promise<void> {
-      if (!selectedCustomerId || !selectedState || !dateRange.startDate || !dateRange.endDate) {
+      if (!selectedState || !dateRange.startDate || !dateRange.endDate) {
         setIsDashboardLoading(false);
         return;
       }
@@ -270,8 +267,7 @@ function Dashboard(): JSX.Element {
 
   const cards = mapCards(
     dashboardData,
-    selectedCustomerId || DEFAULT_CUSTOMER_ID,
-    selectedState,
+    selectedCustomerId,
     dateRange.startDate || '-',
     dateRange.endDate || '-'
   );

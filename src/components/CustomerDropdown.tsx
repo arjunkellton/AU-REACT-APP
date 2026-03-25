@@ -45,7 +45,7 @@ function CustomerDropdown({
 
   return (
     <label className="filter-card filter-card--search">
-      <span className="filter-card__label">Customer Id</span>
+      <span className="filter-card__label">Customer Id Optional</span>
       <div className="search-select">
         <input
           type="text"
@@ -53,12 +53,19 @@ function CustomerDropdown({
           onChange={handleInputChange}
           onFocus={() => setIsOpen(true)}
           onBlur={handleBlur}
-          placeholder="Search customer"
-          disabled={disabled || options.length === 0}
+          placeholder="All customers"
+          disabled={disabled}
         />
 
-        {isOpen && !disabled && options.length > 0 ? (
+        {isOpen && !disabled ? (
           <div className="search-select__menu">
+            <button
+              type="button"
+              className={`search-select__option ${value === '' ? 'is-active' : ''}`}
+              onMouseDown={() => handleSelect('')}
+            >
+              All Customers
+            </button>
             {filteredOptions.length > 0 ? (
               filteredOptions.slice(0, 8).map((customerId) => (
                 <button

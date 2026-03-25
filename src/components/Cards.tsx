@@ -18,9 +18,9 @@ function CardIcon({ icon, accent }: { icon: CardIconType; accent: CardAccent }):
         <path d="M4 5h16v14H4V5zm2 2v10h12V7H6zm2 2h5v2H8V9zm0 4h8v2H8v-2z" />
       </svg>
     ),
-    state: (
+    discount: (
       <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 2 4 6v6c0 5.25 3.5 10.08 8 11 4.5-.92 8-5.75 8-11V6l-8-4zm0 2.18 6 3v4.82c0 4.08-2.55 7.97-6 8.9-3.45-.93-6-4.82-6-8.9V7.18l6-3z" />
+        <path d="M7 4h10l3 5-3 5H7L4 9l3-5zm1.2 2L6.4 9l1.8 3h7.6l1.8-3-1.8-3H8.2zM9 8.25A1.25 1.25 0 1 0 9 10.75 1.25 1.25 0 0 0 9 8.25zm6 5A1.25 1.25 0 1 0 15 15.75 1.25 1.25 0 0 0 15 13.25zM8.5 15.5l7-7 1.4 1.4-7 7-1.4-1.4z" />
       </svg>
     ),
     revenue: (

@@ -40,14 +40,14 @@ export async function getMinMaxDates(state: string): Promise<StateDateRange> {
 }
 
 export async function getDashboardData(
-  customerId: string | number,
+  customerId: string,
   state: string,
   startDate: string,
   endDate: string
 ): Promise<DashboardApiResponse> {
   const response = await apiClient.get<DashboardApiResponse>('/dashboard', {
     params: {
-      customerId,
+      customerId: customerId || undefined,
       state,
       startDate,
       endDate
